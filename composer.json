@@ -1,0 +1,15 @@
+{
+  "name": "morioa/qrcode",
+  "description": "QR Code Test",
+  "minimum-stability": "stable",
+  "license": "proprietary",
+  "authors": [
+    {
+      "name": "Andrew Morio",
+      "email": "morioa@hotmail.com"
+    }
+  ],
+  "require": {
+    "amirezaeb/heroqr": "*"
+  }
+}
