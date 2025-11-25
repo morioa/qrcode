@@ -10,6 +10,7 @@
     }
   ],
   "require": {
-    "amirezaeb/heroqr": "*"
+    "amirezaeb/heroqr": "*",
+    "square/square": "*"
   }
 }
