@@ -34,28 +34,30 @@ $products = [
     'jewelry_sod' => 'https://square.link/u/brIdbf34',
 ];
 
-foreach ($products as $name => $link) {
-    $dir = 'images';
-    if (!is_dir($dir)) {
-        mkdir($dir);
-    }
+// Resolve output directory from environment (mounted host dir), fallback to project root
+$outputDir = getenv('OUTPUT_DIR') ?: __DIR__;
+if (!is_dir($outputDir)) {
+    // Try to create it if it doesn't exist (useful when OUTPUT_DIR points inside the workspace)
+    @mkdir($outputDir, 0777, true);
+}
 
-    $filePrefix = "{$dir}/{$name}";
+foreach ($products as $name => $link) {
+    $filePrefix = $outputDir . DIRECTORY_SEPARATOR . $name;
     if (!is_file("{$filePrefix}.png")) {
-        # Create a QRCodeGenerator instance
+        // Create a QRCodeGenerator instance
         $qrCodeManager = new QRCodeGenerator();
 
         $qrCode = $qrCodeManager
-            # Set the data to be encoded in the QR code
+            // Set the data to be encoded in the QR code
             ->setData($link)
-            # Generate the QR code in PNG format (default)
+            // Generate the QR code in PNG format (default)
             ->generate('png',[
                 'Shape' => 'S1',
                 'Marker' => 'M1',
                 'Cursor' => 'C1'
             ]);
 
-        # Save the generated QR code to a file
+        // Save the generated QR code to a file
         $qrCode->saveTo($filePrefix);
     }
 }
